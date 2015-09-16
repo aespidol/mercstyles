@@ -12,6 +12,17 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, './client')));
 
-app.listen(8000, function(){
+var server = app.listen(8000, function(){
 	console.log("We are listening on 8000");
 })
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function(socket) {
+	console.log('SERVER::WE ARE USING SOCKETS!');
+	console.log(socket.id);
+	socket.on('form_data', function(data){
+		console.log(data)
+		io.sockets.emit('form_pass', data)
+	})
+});

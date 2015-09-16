@@ -1,9 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html ng-app = "stylistApp">
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-	<title>MercStyles</title>
-</head>
-<body>
-</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+			var stylistApp = angular.module('stylistApp', ['ngRoute']);
+			stylistApp.config(function ($routeProvider){
+				$routeProvider
+					.when('/', {
+						templateUrl: './partials/welcome.html'
+					})
+					.when('/confirm', {
+						templateUrl: './partials/confirm.html'
+					})
+					.otherwise({
+						redirectTo: '/'
+					})
+				})
+			$(document).ready(function() {
+				var socket = io.connect()
+				    socket.on('connect', function (data) {
+              console.log('BROWSER::WE ARE USING SOCKETS!');
+              $("#appointment").submit(function(){
+              		var form = {}
+              		form.name = $("#name").val()
+              		form.email = $("#email").val()
+              		form.date = $("#date").val()
+              		$("#name").val("")
+              		$("#email").val("")
+              		$("#date").val("")
+              		socket.emit('form_data', form);
+              	})
+              		socket.on('form_pass', function(data){
+              			console.log("Yay",data);
+              		})
+              })
+			})
+	</script>
+	<div ng-view = "">
 </html>
