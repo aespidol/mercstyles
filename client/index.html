@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html ng-app = "stylistApp">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
 			var stylistApp = angular.module('stylistApp', ['ngRoute']);
 			stylistApp.config(function ($routeProvider){
@@ -12,32 +11,29 @@
 					.when('/', {
 						templateUrl: './partials/welcome.html'
 					})
-					.when('/confirm', {
-						templateUrl: './partials/confirm.html'
+					.when('/admin', {
+						templateUrl: './partials/admin.html'
+					})
+					.when('/detail/:id', {
+						templateUrl: './partials/detail.html'
+					})
+					.when('/login', {
+						templateUrl: './partials/login.html'
+					})
+					.when('/signup', {
+						templateUrl: './partials/signup.html'
+					})
+					.when('/thanks', {
+						templateUrl: './partials/thanks.html'
 					})
 					.otherwise({
 						redirectTo: '/'
 					})
 				})
-			$(document).ready(function() {
-				var socket = io.connect()
-				    socket.on('connect', function (data) {
-              console.log('BROWSER::WE ARE USING SOCKETS!');
-              $("#appointment").submit(function(){
-              		var form = {}
-              		form.name = $("#name").val()
-              		form.email = $("#email").val()
-              		form.date = $("#date").val()
-              		$("#name").val("")
-              		$("#email").val("")
-              		$("#date").val("")
-              		socket.emit('form_data', form);
-              	})
-              		socket.on('form_pass', function(data){
-              			console.log("Yay",data);
-              		})
-              })
-			})
 	</script>
+	<script type="text/javascript" src="./javascripts/factories/client.js"></script>
+	<script type="text/javascript" src="./javascripts/controllers/clients.js"></script>
+	<script type="text/javascript" src="./javascripts/factories/admin.js"></script>
+	<script type="text/javascript" src="./javascripts/controllers/admins.js"></script>
 	<div ng-view = "">
 </html>

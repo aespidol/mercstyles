@@ -1,0 +1,20 @@
+<title>Admin</title>
+</head>
+<body>	
+<div ng-controller = "adminsController as ac">
+<table>
+	<tr>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>Phone</th>
+		<th>Email</th>
+	</tr>
+	<tr ng-repeat = "client in ac.clients">
+		<td><a href="#/detail">{{client.lastName}}</a></td>
+		<td>{{client.firstName}}</td>
+		<td>{{}}</td>
+		<td>{{client.email}}</td>
+	</tr>
+</table>
+</div>
+<body>
