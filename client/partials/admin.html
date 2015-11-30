@@ -10,7 +10,7 @@
 		<th>Email</th>
 	</tr>
 	<tr ng-repeat = "client in ac.clients">
-		<td><a href="#/detail">{{client.lastName}}</a></td>
+		<td><a href="#/detail/{{client._id}}">{{client.lastName}}</a></td>
 		<td>{{client.firstName}}</td>
 		<td>{{}}</td>
 		<td>{{client.email}}</td>
